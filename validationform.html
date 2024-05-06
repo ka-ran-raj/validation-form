@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Form</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    h2 {
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #333;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="checkbox"],
+    textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    input[type="radio"] {
+        margin-right: 5px;
+        vertical-align: middle;
+    }
+
+    .radio-label {
+        display: inline-block;
+        margin-right: 15px;
+        color: #555;
+    }
+
+    .error {
+        color: #FF0001;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    #output {
+        margin-top: 20px;
+    }
+
+    .submit-btn,
+    .clear-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .submit-btn {
+        background-color: #c72e5c;
+        color: #fff;
+    }
+
+    .submit-btn:hover {
+        background-color: #8d616e;
+    }
+
+    .clear-btn {
+        background-color: #c72e5c;
+        color: #fff;
+    }
+
+    .clear-btn:hover {
+        background-color: #8d616e;
+    }
+
+    .button-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    
+    form {
+        text-align: left;
+    }
+
+    
+    #agree-checkbox {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px; 
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>REGISTRATION FORM</h2> 
+    <form id="registrationForm">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username">
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password">
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" name="confirmPassword" id="confirmPassword">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name">
+        <label for="email">E-mail:</label>
+        <input type="text" name="email" id="email">
+        <label for="dob">Date of Birth:</label>
+        <input type="date" name="dob" id="dob">
+        <label for="mobileno">Mobile No:</label>
+        <input type="tel" name="mobileno" id="mobileno" pattern="[0-9]{10}" maxlength="10">
+        <label for="address">Address:</label>
+        <textarea name="address" id="address" rows="5" cols="30"></textarea>
+        <label>Gender:</label>
+        <label class="radio-label"><input type="radio" name="gender" value="male" id="male"> Male</label>
+        <label class="radio-label"><input type="radio" name="gender" value="female" id="female"> Female</label>
+        <label class="radio-label"><input type="radio" name="gender" value="other" id="other"> Other</label><br><br>
+
+
+        
+        <div class="button-container">
+            <input type="submit" value="Submit" class="submit-btn">
+            <input type="reset" value="Clear" class="clear-btn">
+        </div>
+    </form>
+    <div id="output"></div> 
+</div>
+
+<script>
+document.getElementById("registrationForm").addEventListener("submit", function(event) {
+    event.preventDefault(); 
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var dob = document.getElementById("dob").value;
+    var mobileno = document.getElementById("mobileno").value;
+    var address = document.getElementById("address").value;
+    var gender = document.querySelector('input[name="gender"]:checked');
+    
+
+    if (username === "") {
+        document.getElementById("output").innerHTML = "<p class='error'>Username is required</p>";
+        return;
+    }
+    if (password === "") {
+        document.getElementById("output").innerHTML = "<p class='error'>Password is required</p>";
+        return;
+    }
+    if (password.length < 8) {
+        document.getElementById("output").innerHTML = "<p class='error'>Password must be at least 8 characters</p>";
+        return;
+    }
+    if (password !== confirmPassword) {
+        document.getElementById("output").innerHTML = "<p class='error'>Passwords do not match</p>";
+        return;
+    }
+    if (name === "") {
+        document.getElementById("output").innerHTML = "<p class='error'>Name is required</p>";
+        return;
+    }
+    if (email === "") {
+        document.getElementById("output").innerHTML = "<p class='error'>Email is required</p>";
+        return;
+    }
+    if (dob === "") {
+        document.getElementById("output").innerHTML = "<p class='error'>Date of Birth is required</p>";
+        return;
+    }
+    if (mobileno === "") {
+        document.getElementById("output").innerHTML = "<p class='error'>Mobile number is required</p>";
+        return;
+    }
+    if (mobileno.length !== 10) {
+        document.getElementById("output").innerHTML = "<p class='error'>Mobile number must be 10 digits</p>";
+        return;
+    }
+    if (address === "") {
+        document.getElementById("output").innerHTML = "<p class='error'>Address is required</p>";
+        return;
+    }
+    if (!gender) {
+        document.getElementById("output").innerHTML = "<p class='error'>Gender is required</p>";
+        return;
+    }
+    
+
+    document.getElementById("output").innerHTML = "<hr><hr><h3 style='color: #006600;'>You have successfully registered.</h3>" +
+        "<h2>YOUR OUTPUT:</h2>" +
+        "Username: " + username + "<br>" +
+        "Name: " + name + "<br>" +
+        "Email: " + email + "<br>" +
+        "Date of Birth: " + dob + "<br>" +
+        "Mobile No: " + mobileno + "<br>" +
+        "Address: " + address + "<br>" +
+        "Gender: " + gender.value + "<br>";
+});
+</script>
+
+</body>
+</html>
